@@ -5,8 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Logo from '@assets/img/logos/e-diaristas-logo.png';
 import { NavigationTheme } from '../themes/app-theme';
 import Index from '../../pages';
+import EncontrarDiarista from 'pages/encontrar-diarista';
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+    Index: undefined;
+    EncontrarDiarista: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const Router: React.FC = () => {
     return (
@@ -27,6 +33,10 @@ const Router: React.FC = () => {
                 }}
             >
                 <Stack.Screen name="Index" component={Index} />
+                <Stack.Screen
+                    name="EncontrarDiarista"
+                    component={EncontrarDiarista}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
