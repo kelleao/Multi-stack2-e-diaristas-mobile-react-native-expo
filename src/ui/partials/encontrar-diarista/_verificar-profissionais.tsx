@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import Button from 'ui/components/inputs/Button/Button';
 import PageTitle from 'ui/components/inputs/Button/data-display/PageTitle/PageTitle';
@@ -12,6 +12,7 @@ import {
     ResponseContainer,
 } from './_verificar-profissionais.style';
 import useVerificarProfissionais from 'data/hooks/pages/useVerificarProfissionais.page';
+import useVerificarProfissionaiMobile from 'data/hooks/pages/useVerificarProfissionais.page.mobile';
 
 interface VerificarProfissionaisProps {
     onContratarProfissional: () => void;
@@ -31,7 +32,15 @@ const VerificarProfissionais: React.FC<VerificarProfissionaisProps> = (
             buscaFeita,
             carregando,
             diaristasRestantes,
-        } = useVerificarProfissionais();
+        } = useVerificarProfissionais(),
+        { cepAutomatico } = useVerificarProfissionaiMobile();
+
+    useEffect(() => {
+        if (cepAutomatico && !cep) {
+            setCep(cepAutomatico);
+            buscarProfissionais(cepAutomatico);
+        }
+    }, [cepAutomatico]);
 
     return (
         <ScrollView>
