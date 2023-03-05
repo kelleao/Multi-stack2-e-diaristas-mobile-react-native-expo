@@ -2,22 +2,22 @@ import { AxiosRequestConfig } from 'axios';
 import { ApiLinksInterface } from 'data/@types/ApiLinksInterface';
 import { ApiService, ApiServiceHateoas } from 'data/services/ApiService';
 import { useEffect, useCallback } from 'react';
-import useSwr, { mutate } from 'swr';
+import useSWR, { mutate } from 'swr';
 
-// export default function useApi<OutputType>(
-//     endPoint: string | null,
-//     config?: AxiosRequestConfig
-// ): { data: OutputType | undefined; error: Error } {
-//     const { data, error } = useSwr(endPoint, async (url) => {
-//         const response = await ApiService(url, config);
+export default function useApi<OutputType>(
+    endPoint: string | null,
+    config?: AxiosRequestConfig
+): { data: OutputType | undefined; error: Error } {
+    const { data, error } = useSWR<OutputType>(endPoint, async (url) => {
+        const response = await ApiService(url, config);
 
-//         return response.data;
-//     });
+        return response.data;
+    });
 
-//     return { data, error };
-// }
+    return { data, error };
+}
 
-export default function useApiHateoas<OutputType>(
+export function useApiHateoas<OutputType>(
     links: ApiLinksInterface[] = [],
     name: string | null,
     config?: AxiosRequestConfig
@@ -31,7 +31,7 @@ export default function useApiHateoas<OutputType>(
         });
     }, [links, name, config]);
 
-    const { data, error } = useSwr<OutputType>(name, makeRequest);
+    const { data, error } = useSWR<OutputType>(name, makeRequest);
 
     useEffect(() => {
         mutate(name, makeRequest);
