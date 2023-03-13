@@ -2,8 +2,8 @@ import { useTheme } from '@emotion/react';
 import React, { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import Button from 'ui/components/inputs/Button/Button';
-import PageTitle from 'ui/components/inputs/Button/data-display/PageTitle/PageTitle';
-import UserInformation from 'ui/components/inputs/Button/data-display/UserInformation/UserInformation';
+import PageTitle from 'ui/components/data-display/PageTitle/PageTitle';
+import UserInformation from 'ui/components/data-display/UserInformation/UserInformation';
 import TextInputMask from 'ui/components/inputs/TextInputMask/TextInputMask';
 import {
     FormContainer,

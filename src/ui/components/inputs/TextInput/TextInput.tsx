@@ -17,7 +17,8 @@ const TextInput: React.FC<TextInputProps> = ({
 }) => {
     return (
         <View>
-            <TextInputStyled {...props} />
+            <TextInputStyled autoComplete={autoComplete} {...props} />
+            {/* @ts-ignore */}
             {helperText ? (
                 <HelperTextStyled type="error">{helperText}</HelperTextStyled>
             ) : null}
